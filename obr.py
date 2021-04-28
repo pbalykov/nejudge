@@ -45,7 +45,7 @@ def regist(self):
         if not('а' <= i <= 'я') and not('a' <= i  <= 'z') and not(i in('\t', ' ')) and  s < 2: 
             return False
 
-    return True if len(self[0]) - s > 2 else False
+    return True if len(self[0]) - s > 3 else False
     
 
     

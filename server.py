@@ -1,4 +1,4 @@
-import os, subprocess, http.server,  socketserver, threading, urllib.parse, ssl
+import os, subprocess, http.server,  socketserver, threading, urllib.parse, ssl, sys
 import porhc, gek_kl, obr, save_fail, post_get, pes
 
 
@@ -209,7 +209,7 @@ class Server(http.server.BaseHTTPRequestHandler):
                                       <option>gcc (C)</option>
                                       <option>Python3.7</option>
                                       <option>RUST</option>
-                                      <option>FRI Pascal</option>
+                                      <option>FREE Pascal</option>
 
                             </select>
                             <input type="file" name="fal"/>
@@ -316,7 +316,7 @@ class Server(http.server.BaseHTTPRequestHandler):
                 if key != '':
                           html += """<p align = center>
                                         <table>
-                                                 <td  bgcolor="DC143C"><font size = "4">Логин или пороль в веден не правильно</font></tb>
+                                                 <td  bgcolor="DC143C"><font size = "4">Логин или пaроль в веден не правильно</font></tb>
                                         </table>
                                </p>""".encode('utf-8')
                 html+='''
@@ -358,8 +358,11 @@ class Server(http.server.BaseHTTPRequestHandler):
                                       
                                       <form action = '/reg' method = "POST">
                                                     <p align = left><input name = "nam" placeholder = "Имя" autocomplete="off" minlength = "3" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')" /></p>
+                                                    <p align = left>Имя пользвателя должно быть больше 3 символов</p>
                                                     <p align = left><input name = "nam" placeholder = "login" autocomplete="off" minlength = "4" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')" /></p>
+                                                    <p align = left>login должен быть больше 3 символов</p>
                                                     <p align = left><input name = "nam" placeholder = "Пароль" type = "password" autocomplete="off" minlength="6" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')"  /></p>
+                                                    <p align = left>Пароль должен быть больше 5 символов</p>
                                                     <p align = left><input name = "nam" placeholder = "Повторить пaроль" type = "password" autocomplete="off" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')" /></p>
                                                     <p align = left><button>Регистрация</button>
                                       </form>
@@ -613,15 +616,19 @@ class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer): 
 
 
 if __name__ == "__main__":
+      class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer): #ThreadingMixIn нужен для потоков, если без потоков нужно убрать
+          if "-https" in sys.argv:
+                def get_request(self):# для шифорвания поролей и https подрубать толко если есть сертификатик
+                #принимаем сокет
+                    sock, addr = self.socket.accept()
+        #создаем обертку для шифрования
+                    sock = ssl.wrap_socket(sock, server_side=True, keyfile='key.txt', certfile='cert.txt')
+             #возвращаем "как было"
+                    return sock, addr
+          pass
+
       ThreadingHTTPServer(('', 8080), Server).serve_forever()
 
-# self.send_header('Set-Cookie',key)
-           # self.send_response(200)
-           # self.send_header('Content-Type', 'text/html; charset=utf-8')
-           # self.send_header('Content-Length', len(html))
-           #  self.send_header('Refresh', '0;/')
-           # self.end_headers()
-           # self.wfile.write(html)
 
                      
 
