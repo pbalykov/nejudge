@@ -3,11 +3,9 @@ import porhc, gek_kl, obr, save_fail, post_get, pes
 
 
 
-if not(os.path.exists(obr.pyti(__file__)  + 'por')):
-    os.mkdir(obr.pyti(__file__) + 'por')
-    open(obr.pyti(__file__) + 'por/pr_user.txt' ,'w')
-    open(obr.pyti(__file__) + 'por/pr_admk.txt' ,'w')
-     
+if not(os.path.exists(obr.pyti(__file__)  + 'passwords')):
+    os.mkdir(obr.pyti(__file__) + 'passwords')
+         
 por_ad = eval('{' + open(obr.pyti(__file__) + 'por/pr_admk.txt','r').read() + '}')
 por_us = eval("{" + open(obr.pyti(__file__) + 'por/pr_user.txt','r').read() + "}")
 
@@ -110,7 +108,7 @@ class Server(http.server.BaseHTTPRequestHandler):
           elif path[0]:
               zad_in_razd = obr.pyti(__file__) + '/'.join(list(path[1].split('/'))[:-1])#для всех задач
               salka = '/' + '/'.join(list(self.path[1:].split('/'))[:-1])#для сылок
-              zad = obr.pyti(__file__) + path[1] + '/' 
+              zad = obr.pyti(__file__) + path[1] + '/'
               for i in os.listdir(obr.pyti(__file__) + path[1]):
                   if i[-5:]  == '.html':
                       zad += i 
@@ -216,10 +214,14 @@ class Server(http.server.BaseHTTPRequestHandler):
                             <input type="submit" value="Отправить"/>
                      </form>''').encode()
               try:
-
                   html += '''<table border="3" width="100%" align = left >
                                     <tr>
-                                         <th>Номер послыки</th><th>Номер задачи</th><th>Язык</th><th>Количество балов</th>'''.encode() +   open(obr.pyti(__file__) + 'rez' + path[1][3:] + '/' + konfig[key][0] + '/' + 'rez.html', 'rb').read() + '</table>'.encode()
+                                         <th>Номер послыки</th><th>Номер задачи</th><th>Язык</th><th>Количество балов</th>'''.encode()
+                  xxx =  os.listdir(obr.pyti(__file__) + 'rez/' +  path[1][3:] + '/' + konfig[key][0])
+                  xxx.sort()
+                  for i in xxx[::-1]:
+                      html += open(obr.pyti(__file__) + 'rez/'+ path[1][3:] + '/' + konfig[key][0] + '/' + i, 'rb').read()
+                      
               except:
                   html 
               html += '''</th>
@@ -304,11 +306,18 @@ class Server(http.server.BaseHTTPRequestHandler):
                                        background: #676767;
                                    }
                               button{
-                                       width:200px;
+                                      width:210px;
+                                      height:29px;            
                                     }
-                                p {
+
+                                      
+                              input{
+                                       width:210px;
+                                       height:29px;
+                                   } 
+                              p{
                                          margin-bottom: 0.5%;
-                                  }
+                               }
                         </style>
                     </head>
                     <body>
@@ -316,17 +325,17 @@ class Server(http.server.BaseHTTPRequestHandler):
                 if key != '':
                           html += """<p align = center>
                                         <table>
-                                                 <td  bgcolor="DC143C"><font size = "4">Логин или пaроль в веден не правильно</font></tb>
+                                                 <td  bgcolor="DC143C"><font size = "4">Логин или пaроль в введен не правильно</font></tb>
                                         </table>
                                </p>""".encode('utf-8')
                 html+='''
                               <form action = '/log' method = "POST">
                                       <p align = center><input name = "log" placeholder = "login" autocomplete="off"/></p>
                                       <p align = center><input name = "por" placeholder = "Пароль" type="password" autocomplete="off"/></p>
-                                      <p align = center><button>Войти</button>
+                                      <p align = center><button>Войти</button></p>
                               </form>
                               
-                              <p align = center><button onclick="window.location.href = '/reg';">Регистрация</button>
+                              <p align = center><input type="button" value="Регистрация" onclick="window.location.href = '/reg';"/></p>
                            
                     </body>
                 </html>'''.encode()
@@ -348,8 +357,16 @@ class Server(http.server.BaseHTTPRequestHandler):
                                                 background: #676767;
                                                }
                                            button{
-                                                    width:210px;
-                                                 }
+                                                     width:210px;
+                                                     height:29px;
+                                                     radius: 5px;
+                                                }
+
+                                           input{
+                                                     width: 210px;
+                                                     height: 29px
+                                                     radius: 5px;
+                                                }
 
                                       </style>
                                 </head>
@@ -364,7 +381,7 @@ class Server(http.server.BaseHTTPRequestHandler):
                                                     <p align = left><input name = "nam" placeholder = "Пароль" type = "password" autocomplete="off" minlength="6" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')"  /></p>
                                                     <p align = left>Пароль должен быть больше 5 символов</p>
                                                     <p align = left><input name = "nam" placeholder = "Повторить пaроль" type = "password" autocomplete="off" required oninvalid="this.setCustomValidity('Поле не должно быть пустым')" /></p>
-                                                    <p align = left><button>Регистрация</button>
+                                                    <p align = left><button>Регистрация</button></p>
                                       </form>
                                 </body>
                             </html>'''.encode('utf-8')
@@ -401,14 +418,16 @@ class Server(http.server.BaseHTTPRequestHandler):
                        global pos
                        l = int(self.headers.get('Content-Length'))
                        l = self.rfile.read(l)
+                       print(l.decode())
                        lang_and_code = obr.fail_leng(l)
+                       print(lang_and_code)
                        posl.acquire()
                        pos += 1
-                       folder = obr.pyti(__file__) + 'pos' + path[1][3:] + '/'  + str(pos) + '/'
+                       folder = obr.pyti(__file__) + 'pos' + path[1][3:] + '/'  + str(pos) 
                        pesok =  obr.pyti(__file__) + 'pes' + path[1][3:]
                        test =  obr.pyti(__file__) + 'tst' + path[1][3:]
                        rez =  obr.pyti(__file__) + 'rez' + path[1][3:] + '/' +konfig[keu][0]
-
+                       print(folder)
                        os.mkdir(folder)
 
                        threading.Thread(target = pes.pes, args=( pesok, pos, folder, test, rez, lang_and_code)).start()
@@ -468,7 +487,7 @@ class Server(http.server.BaseHTTPRequestHandler):
 
                    if obr.regist(data):
                        regu.acquire()#ограничение потока
-                       if data[1] not in por_us:
+                       if data[1] not in os.listdir(obr.pyti(__file__) + 'passwords'):
                            open(obr.pyti(__file__) + 'por/pr_user.txt' ,'a').write((',\n' if len(por_us) > 0 else '') + """'""" + data[1] + """':('""" + porhc.translt(data[2]) + """','""" + data[0] + """')""")
                      
                            por_us[data[1]] = (porhc.translt(data[2]), data[0])
@@ -486,12 +505,48 @@ class Server(http.server.BaseHTTPRequestHandler):
                                            button{
                                                     width:210px;
                                                  }
+                                           table{
+                                                  background: white;
+                                                  margin-left: 5%;
+                                                  width: 90%;
+                                                }
+                                            
+                                                                                       
+                                           th{
+                                                padding-left: 0.5%;
+                                             }
+                                           .th1{
+                                               padding-top: 0.5%;
+                                              }
+
+
+
+                                           a{
+                                                  text-decoration: none;
+                                                  background-color: #696969;
+                                                  color: #FFFFFF; 
+                                                  padding: 3px;
+                                            }
+                                           a:hover{
+                                                  text-decoration: none;
+                                                  background-color: #808080; 
+                                                  color: #FFFFFF; 
+                                                  padding: 3px;                                             
+                                                  }
+
+
 
                                       </style>
                                 </head>
                                 <body>
-                                   <h1><center>РЕГИСТРАЦИЯ УСПЕШНО ВЫПОЛНЕНА</center></h1>
-                                   <h2><a href = "/" ></center>вернутся назад</center></a></h1>
+                                   <table>
+                                        <tr align = left>
+                                             <th>
+                                                <h2>Регистрация успешно выполнена</h2>
+                                                <h2><a href = "/"><span class="link">Войти в главное меню</span></a></h2>
+                                             </th> 
+                                        </tr>
+                                   </table>
                                 </body>
                                 </head>
                                 </html>'''.encode()
@@ -562,11 +617,11 @@ class Server(http.server.BaseHTTPRequestHandler):
                                              <th class = "indetli"><h2><li>Имя пользователя слишком маленькое.</li></h2></th>
                                          </tr>
                                          <tr align = left>
-                                             <th class = "indetli"><h2><li>В одной из полях регистраци содержат заприщеные сиволы.</li></h2></th>
+                                             <th class = "indetli"><h2><li>В одной из полях регистраци содержат запрещенные сиволы.</li></h2></th>
                                          </tr>
 
                                          <tr align = left>
-                                                <th><h2><a href = "/"><span class="link"></center>вернутся назад</center></span></a></h2></th>
+                                                <th><h2><a href = "/"><span class="link">Вернутся назад</span></a></h2></th><th><th><h2><a href = "/reg"><span class="link">Попробовать сново</span></a></h2></th>
                                          </tr>
                                    </table>
                                 </body>
@@ -616,18 +671,15 @@ class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer): 
 
 
 if __name__ == "__main__":
-      class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer): #ThreadingMixIn нужен для потоков, если без потоков нужно убрать
-          if "-https" in sys.argv:
-                def get_request(self):# для шифорвания поролей и https подрубать толко если есть сертификатик
-                #принимаем сокет
+     class ThreadingHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer): 
+         if "-https" in sys.argv:
+                def get_request(self):
                     sock, addr = self.socket.accept()
-        #создаем обертку для шифрования
                     sock = ssl.wrap_socket(sock, server_side=True, keyfile='key.txt', certfile='cert.txt')
-             #возвращаем "как было"
                     return sock, addr
-          pass
+         pass
 
-      ThreadingHTTPServer(('', 8080), Server).serve_forever()
+     ThreadingHTTPServer(('', 8080), Server).serve_forever()
 
 
                      

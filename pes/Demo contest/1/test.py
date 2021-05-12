@@ -52,6 +52,9 @@ def pes(folder, test, nam_pos, lang):
                 a.append(0)
                 continue
 
+        print(repr(open(folder + '/err.txt', 'r').read()))
+        print(open(folder +'/otv.txt', 'r').read()[:-1])
+        print(open(test + '/' + i + 'a.txt', 'r').read())
         if open(folder + '/err.txt', 'r').read() != '':
            a.append(3)
         elif open(folder +'/otv.txt', 'r').read()[:-1] ==  open(test + '/' + i + 'a.txt', 'r').read():
