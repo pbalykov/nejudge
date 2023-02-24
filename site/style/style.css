@@ -142,37 +142,17 @@ main {
   cursor: pointer; }
 
 .password {
-    width: 350px;
-    margin: 15px auto;
     position: relative;
 }
-#password-input {
-  font-family: 'Roboto', serif;
-  width: 100%;
-  height: 50px;
-  border: none;
-  box-sizing: border-box;
-  display: block;
-  background: #201C1C;
-  color: #ffffff;
-  padding: 0 15px;
-  font-size: 18px;
-  font-weight: 300;
-  outline: none;
-  border-radius: 0;
-}
+
 .password-control {
-    position: absolute;
-    top: 11px;
-    right: 6px;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+	position: absolute;
+	top: 5px;
+	right: 4px;
+	width: 40px;
+	height: 40px;
 }
-.password-control.view {
-    background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
-}
+
 
 @media (max-width: 980px) {
   .nav__list {

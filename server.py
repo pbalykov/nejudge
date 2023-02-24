@@ -1,5 +1,5 @@
 import os, subprocess, http.server,  socketserver, threading, urllib.parse, ssl, sys
-import porhc, gek_kl, obr, save_fail, post_get, pes
+import password, gek_kl, obr, save_fail, post_get, pes
 
 
 
@@ -463,11 +463,12 @@ class Server(http.server.BaseHTTPRequestHandler):
                     keu = '0'
                     l = int(self.headers.get('Content-Length'))
                     s = self.rfile.read(l)
+                    print(s)
              
                     log, por  = s[4:].split(b'&por=')
                     log, por  = urllib.parse.unquote(log.decode()), urllib.parse.unquote(por.decode())
             
-                    if (log in por_us) and (por_us[log][0] == porhc.translt(por)):
+                    if (log in por_us) and (por_us[log][0] == password.encoding_password(por)):
                    
                          s = gek_kl.kluch()
                          konfig[s] =log,  por_us[log][1]
@@ -488,9 +489,10 @@ class Server(http.server.BaseHTTPRequestHandler):
                    if obr.regist(data):
                        regu.acquire()#ограничение потока
                        if data[1] not in os.listdir(obr.pyti(__file__) + 'passwords'):
-                           open(obr.pyti(__file__) + 'por/pr_user.txt' ,'a').write((',\n' if len(por_us) > 0 else '') + """'""" + data[1] + """':('""" + porhc.translt(data[2]) + """','""" + data[0] + """')""")
-                     
-                           por_us[data[1]] = (porhc.translt(data[2]), data[0])
+                           open(obr.pyti(__file__) + 'por/pr_user.txt' ,'a').write((',\n' if len(por_us) > 0 else '') + """'""" + data[1] + """':('""" + password.encoding_password(data[2]) + """','""" + data[0] + """')""")
+                            
+                           print(data[2])
+                           por_us[data[1]] = (password.encoding_password(data[2]), data[0])
                            flag = True 
                        regu.release()#Снимаем ограничения
 
