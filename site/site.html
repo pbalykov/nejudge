@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Авторизация</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="nav__container">
+                <div class="nav__logo">Нejudge<sup>β</sup></div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <section class="request">
+           <div class="container">
+               <div class="request__title">
+                   Авторизация в системе
+               </div>
+	       <div class="request__container request__container--active">
+		        <!-- Сдесь добавть form чтобы отпряоть на форму 
+			<form method="POST" action="/authorization"> -->
+                   	<label class="request__label" for="login">Логин</label>
+                   	<input id="id_name" name="name" class="request__input" placeholder="Введите логин" type="text">
+                   	<lable class="request__label">Пароль</lable>
+                    <input type="password" id="password-input" placeholder="Введите пароль" name="password">
+                    <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
+                    </lable>
+                   	<button class="request__submit">Авторизоваться</button>
+		        <!-- Сдесь добавть form чтобы отпряоть на форму 
+			<form method="POST" action="/authorization"> тут форма закрывается  -->
+                        <button class="request__registry">Регистрация</button>
+               </div>
+           </div>
+        </section>
+    </main>
+    <script src="./js/main.js"></script>
+</body>
+</html>
