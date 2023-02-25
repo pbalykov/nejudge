@@ -7,7 +7,6 @@
     <title>Авторизация</title>
     <link rel="icon" type="image/png" href="img/logo.png">
     <link rel="stylesheet" href="style/style.css">
-    <script src="js/password_open.js"></script>
 </head>
 <body>
     <nav class="nav">
@@ -24,20 +23,18 @@
                    Авторизация в системе
                </div>
 	       <div class="request__container request__container--active">
-		        <!-- Сдесь добавть form чтобы отпряоть на форму 
-			<form method="POST" action="/authorization"> -->
-                   	<label class="request__label" for="login">Логин</label>
-                   	<input id="id_name" name="name" class="request__input" placeholder="Введите логин" type="text">
-                   	<label class="request__label">Пароль</label>
+		       <!-- Сдесь добавть form чтобы отпряоть на форму -->
+                   	<label class="request__label" for="id_login">Логин</label>
+                   	<input id="id_login" name="name" class="request__input" placeholder="Введите логин" type="text"  autocomplete="off">
+                   	<label class="request__label" for="id_password">Пароль</label>
 			<div class="password">
-                            <input type="password" id="id_password" class="request__input" placeholder="Введите пароль" name="password" >
+                            <input type="password" id="id_password" class="request__input" placeholder="Введите пароль" name="password" autocomplete="off">
 			    <img src="img/closed_eye.png" id="img_png" onclick="show_and_hide_password('id_password', this)" class="password-control" /> 
 			</div>
 
                    	<button class="request__submit">Авторизоваться</button>
-		        <!-- Сдесь добавть form чтобы отпряоть на форму 
-			<form method="POST" action="/authorization"> тут форма закрывается  -->
-                        <button class="request__registry">Регистрация</button>
+		        <!-- form закрывктся  -->
+			<button class="request__registry">Регистрация</button>
                </div>
            </div>
         </section>

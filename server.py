@@ -297,49 +297,7 @@ class Server(http.server.BaseHTTPRequestHandler):
       else:# Не зареган товарищь 
             
             if self.path ==  '/':
-                html =  '''
-                <html>
-                    <head>
-                        <title>login</title>
-                        <style>
-                              body{
-                                       background: #676767;
-                                   }
-                              button{
-                                      width:210px;
-                                      height:29px;            
-                                    }
-
-                                      
-                              input{
-                                       width:210px;
-                                       height:29px;
-                                   } 
-                              p{
-                                         margin-bottom: 0.5%;
-                               }
-                        </style>
-                    </head>
-                    <body>
-                              <h1><p align = center>Вход в тестирующую систему <br> Нejudge<sup>β</sup></p></h1>'''.encode()
-                if key != '':
-                          html += """<p align = center>
-                                        <table>
-                                                 <td  bgcolor="DC143C"><font size = "4">Логин или пaроль в введен не правильно</font></tb>
-                                        </table>
-                               </p>""".encode('utf-8')
-                html+='''
-                              <form action = '/log' method = "POST">
-                                      <p align = center><input name = "log" placeholder = "login" autocomplete="off"/></p>
-                                      <p align = center><input name = "por" placeholder = "Пароль" type="password" autocomplete="off"/></p>
-                                      <p align = center><button>Войти</button></p>
-                              </form>
-                              
-                              <p align = center><input type="button" value="Регистрация" onclick="window.location.href = '/reg';"/></p>
-                           
-                    </body>
-                </html>'''.encode()
-
+                html = 
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html; charset=utf-8')
                 self.send_header('Content-Length', len(html))
