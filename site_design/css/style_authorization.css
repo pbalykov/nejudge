@@ -144,6 +144,10 @@ main {
 .password {
     position: relative;
 }
+ 
+.password > .request__input {
+    padding-right: 55px;
+}
 
 .password-control {
 	position: absolute;
@@ -151,8 +155,8 @@ main {
 	right: 4px;
 	width: 40px;
 	height: 40px;
+	background-size: cover;
 }
-
 
 @media (max-width: 980px) {
   .nav__list {
