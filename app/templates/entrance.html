@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -12,18 +11,19 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='normalize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 
-	<title>Нejudgeβ - Login</title>
+	<title>Нejudge<sup>β</sup> - Login</title>
 </head>
 <body>
 	<div class="form_auth_block">
 	<div class="form_auth_block_content">
-		<h1 class="form_auth_block_head_text">Вход в тестирующую систему Нejudgeβ</h1>
-		<form class="form_auth_style" action="#" method="post">
-			<input type="text" name="auth_email" placeholder="Login" required >
-			<input type="password" name="auth_pass" placeholder="password" required >
-			<button class="form_auth_button" type="submit" name="form_auth_submit">Войти</button>
+		<h1 class="form_auth_block_head_text">Вход в тестирующую систему Нejudge<sup>β</sup></h1>
+		<form class="form_auth_style" action="/entrance" method="post">
+			<input type="text" name="login" placeholder="Login" required >
+			<input type="password" name="password" placeholder="password" required >
+			<button class="form_auth_button" type="submit">Войти</button>
 		</form>
-		<button class="reg-button">Регистрация</button>
+        <!-- подредачь плиз a href что бы он был как бы замаскировыный под кнопку -->
+        <button class="reg-button"><a href="/registration">Регистрация</a></button>
 	</div>
 	</div>
 </body>

@@ -3,12 +3,22 @@ from app import app, db
 from app.models import User
 
 @app.route('/')
-def entrance():
+def home_page():
     return render_template("entrance.html")
+
+@app.route('/entrance', methods=['POST'])
+def entrance():
+    login = request.form['login']
+    password = request.form['password']
+    if User.get_user(login, password) :
+        return "YES entrance"
+    return "No entrance"
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return redirect(url_for('entrance'), code=303)
+    return redirect(url_for('home_page'), code=303)
 
 @app.route('/registration', methods = ['GET', 'POST'])
 def registration():
