@@ -1,0 +1,46 @@
+<html>
+                                <head>
+                                      <title> Главная страница</title>
+                                      <style>
+                                         body{
+                                                  background: #676767;
+                                             }
+                                         button{
+                                                  width:100px;
+                                               }
+                                         a{
+                                             background-color: #FFFFFF;
+                                             border: none;
+                                             color: #000000;
+                                             padding: 10px 10px;
+                                             text-align: center;
+                                             text-decoration: none;
+                                             display: inline-block;
+                                             font-size: 15px;
+                                             }
+
+                                    </style>
+                                </head>
+<body>
+                                      <h1><p align = left>Тестирующая система Нejudge<sup>β</sup></p></h1>
+                                                <table style="text-align: left;">
+                                                 <th>
+                                                    <form action = "/logout" method = "POST">
+                                                            <button>Выход</button>
+                                                    </form>
+                                                  </th>
+                                                  <th>
+                                                    <form action = "/itog"  method = "GET">
+                                                         <button>Итог</button>
+                                                    </form>
+                                                  </th>
+                                              </table>
+
+                       <ul>
+                        {% for item in items %}
+                            <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+                        {% endfor %}
+                        </ul>                                                                                
+               <br/>
+                                </body>
+                            </html>
