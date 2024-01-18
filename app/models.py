@@ -25,10 +25,19 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
-class Contes(db.Model):
+class Contest(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    name_contes = db.Column(db.String(128), unique=False, nullable=False)
+    name_contest = db.Column(db.String(128), unique=False, nullable=False)
+    
+    folder_tasks = db.Column(db.String(128), unique=True, nullable=False)
+    folder_config = db.Column(db.String(128), unique=True, nullable=False)
 
+    link_contest = db.Column(db.String(128), unique=True, nullable=False)
+    number_tasks = db.Column(db.Integer, unique=False, nullable=False)
+
+    
+    def __repr__(self):
+        return '<User %r>' % (self.nickname)
 
 @manager.user_loader
 def load_user(user_id):

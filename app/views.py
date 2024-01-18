@@ -13,7 +13,6 @@ def home_page():
 
     return render_template("entrance.html")
 
-
 @app.route('/entrance', methods=['POST'])
 def entrance():
     login = request.form['login']
@@ -30,6 +29,24 @@ def logout():
     logout_user()
     return redirect(url_for('home_page'))
 
+@app.route('/contest')
+@login_required
+def contest():
+    items = [{"url": "/page1", "name": "Ссылка 1"},
+             {"url": "/page2", "name": "Ссылка 2"}
+            ]
+    return render_template('menu.html', items=items)
+
+
+@app.route('/contest/<link>') #контест выбор задач
+@login_required
+def contest_tasks(link):
+    return link
+
+@app.route('/contest/<link>/<number>') #контест задача сама
+@login_required
+def tasks(link, number):
+    return str(link) + " " + str(number)
 
 @app.errorhandler(404)
 def page_not_found(e):
